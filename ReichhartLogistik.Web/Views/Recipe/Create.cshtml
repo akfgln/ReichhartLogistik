@@ -21,17 +21,17 @@
                     <label asp-for="Name" class="ms-2"></label>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-floating py-2 col-12  text-end">
+                <div class="form-floating py-2 col-12 mt-3 text-end">
                     <a asp-controller="Ingredient" asp-action="Create" class="btn btn-outline-primary border">
                         Neue Zutat erstellen
                     </a>
-                    <label asp-for="SelectedIngredientIds" class="control-label"></label>
+                    <label asp-for="SelectedIngredientIds" class="control-label">Ausgewählte Zutaten</label>
                     <select multiple="multiple" class="form-control" id="SelectedIngredientIds" asp-for="SelectedIngredientIds" asp-items="Model.AvailableIngredients"></select>
                     <span asp-validation-for="SelectedIngredientIds" class="text-danger"></span>
 
                 </div>
 
-                <div class="row pt-2">
+                <div class="row mt-5 pt-2">
                     <div class="col-6 col-md-3">
                         <button type="submit" class="btn btn-primary form-control"><i class="bi bi-plus-circle"></i> Erstellen</button>
                     </div>
@@ -49,4 +49,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/multiselect/js/popper.min.js"></script>
+    <script src="~/lib/multiselect/js/jquery.multiselect.js"></script>
 }

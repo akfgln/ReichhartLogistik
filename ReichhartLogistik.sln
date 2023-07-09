@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReichhartLogistik.Service",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReichhartLogistik.Models", "ReichhartLogistik.Model\ReichhartLogistik.Models.csproj", "{18AC97C4-DBC5-4DE1-AFC7-E64548D03FAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReichhartLogistik.Test", "ReichhartLogistik.Test\ReichhartLogistik.Test.csproj", "{D0E87705-97BB-48CE-BD49-F55201BAD6B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{18AC97C4-DBC5-4DE1-AFC7-E64548D03FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18AC97C4-DBC5-4DE1-AFC7-E64548D03FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18AC97C4-DBC5-4DE1-AFC7-E64548D03FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E87705-97BB-48CE-BD49-F55201BAD6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E87705-97BB-48CE-BD49-F55201BAD6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E87705-97BB-48CE-BD49-F55201BAD6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E87705-97BB-48CE-BD49-F55201BAD6B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

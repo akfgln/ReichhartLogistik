@@ -14,19 +14,16 @@ namespace ReichhartLogistik.Web.Controllers
     public class RecipeController : Controller
     {
         private readonly IIngredientService _ingredientService;
-        private readonly ILogger<RecipeController> _logger;
         private readonly INotificationService _notificationService;
         private readonly IRecipeService _recipeService;
         private readonly IRecipeIngredientsService _recipeIngredientsService;
         public RecipeController(
             IIngredientService ingredientService,
-            ILogger<RecipeController> logger,
             INotificationService notificationService,
             IRecipeService recipeService,
             IRecipeIngredientsService recipeIngredientsService)
         {
             _ingredientService = ingredientService;
-            _logger = logger;
             _notificationService = notificationService;
             _recipeService = recipeService;
             _recipeIngredientsService = recipeIngredientsService;
@@ -60,6 +57,7 @@ namespace ReichhartLogistik.Web.Controllers
                 return RedirectToAction("Edit", new { id = recipe.Id });
             }
 
+            await PrepareAvaliableIngredientsAsync(recipeModel);
             _notificationService.ErrorNotification("ein Fehler ist aufgetreten!");
             return View(recipeModel);
         }
@@ -114,6 +112,10 @@ namespace ReichhartLogistik.Web.Controllers
                     await PrepareRecipeIngredients(recipeModel, recipe, true);
                     await PrepareAvaliableIngredientsAsync(recipeModel);
                     _notificationService.SuccessNotification("Das Rezept wurde aktualisiert!");
+                    if (recipeModel.Deleted)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 else
                 {

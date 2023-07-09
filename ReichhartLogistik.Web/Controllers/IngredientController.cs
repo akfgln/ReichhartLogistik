@@ -10,16 +10,14 @@ namespace ReichhartLogistik.Web.Controllers
 {
     public class IngredientController : Controller
     {
-        private readonly ILogger<IngredientController> _logger;
         private readonly IIngredientService _ingredientService;
         private readonly IRecipeIngredientsService _recipeIngredientsService;
         private readonly INotificationService _notificationService;
-        public IngredientController(ILogger<IngredientController> logger,
+        public IngredientController(
             IIngredientService ingredientService,
             IRecipeIngredientsService recipeIngredientsService,
             INotificationService notificationService)
         {
-            _logger = logger;
             _ingredientService = ingredientService;
             _recipeIngredientsService = recipeIngredientsService;
             _notificationService = notificationService;
