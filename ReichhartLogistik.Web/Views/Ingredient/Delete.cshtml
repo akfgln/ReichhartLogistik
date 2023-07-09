@@ -10,9 +10,9 @@
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Delete ingredient - @Model.Id</h2>
+                <h2 class="text-white py-2">Zutat löschen - @Model.Id</h2>
 
-                <h3>Are you sure you want to delete this?</h3>
+                <h3>Sind Sie sicher, dass Sie dies löschen möchten?</h3>
             </div>
         </div>
     </div>
@@ -36,10 +36,10 @@
             <div class="border p-3 mt-4">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="row mt-3">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-danger form-control">Delete</button>
+                    <div class="col-sm-12 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Löschen</button>
                     </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col-sm-12 col-md-3">
                         <a asp-action="Index" class="btn btn-secondary border  form-control">
                             Zurück zur Liste
                         </a>

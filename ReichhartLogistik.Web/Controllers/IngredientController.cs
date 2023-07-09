@@ -48,7 +48,7 @@ namespace ReichhartLogistik.Web.Controllers
                 var ingredient = ingredientModel.ToEntity<Ingredient>();
                 await _ingredientService.InsertIngredientAsync(ingredient);
                 _notificationService.SuccessNotification("Die Zutat wurde erstellt!");
-                return RedirectToAction("Edit", ingredient.Id);
+                return RedirectToAction("Edit", new { id = ingredient.Id });
             }
 
             _notificationService.ErrorNotification("Das Modell ist ungültig!");
@@ -132,12 +132,10 @@ namespace ReichhartLogistik.Web.Controllers
                     {
                         await _ingredientService.DeleteIngredientAsync(ingredient);
                         _notificationService.SuccessNotification("Die Zutat wurde gelöscht!");
-                    }
-                    else
-                    {
-                        _notificationService.ErrorNotification("Die Zutat kann nicht gelöscht werden, da sie in einem anderen Rezept enthalten ist!");
+                        return RedirectToAction("Index");
                     }
 
+                    _notificationService.ErrorNotification("Die Zutat kann nicht gelöscht werden, da sie in einem anderen Rezept enthalten ist!");
                     var model = ingredient.ToModel<IngredientModel>();
                     return View(model);
                 }

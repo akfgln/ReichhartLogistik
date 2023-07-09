@@ -4,6 +4,7 @@ using ReichhartLogistik.Models.Validators;
 using ReichhartLogistik.Data.Entities;
 using ReichhartLogistik.Service;
 using ReichhartLogistik.Web.Services;
+using System.Reflection;
 
 namespace ReichhartLogistik.Models
 {
@@ -25,6 +26,7 @@ namespace ReichhartLogistik.Models
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
             services.AddValidatorsFromAssemblyContaining<RecipeValidator>();
+            //services.AddValidatorsFromAssemblyContaining<RecipeValidator>(ServiceLifetime.Scoped);
 
             builder.Services.AddScoped<IRepository<Recipe>, EntityRepository<Recipe>>();
             builder.Services.AddScoped<IRecipeService, RecipeService>();

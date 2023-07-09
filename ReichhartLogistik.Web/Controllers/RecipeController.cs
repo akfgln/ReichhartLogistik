@@ -57,7 +57,7 @@ namespace ReichhartLogistik.Web.Controllers
                 recipe.RecipeIngredients.AddRange(recipeModel.SelectedIngredientIds.Select(x => new RecipeIngredients { IngredientId = x, RecipeId = recipe.Id }));
                 await _recipeService.UpdateRecipeAsync(recipe);
                 _notificationService.SuccessNotification("Neues Rezept wurde erstellt!");
-                return RedirectToAction("Edit", recipe.Id);
+                return RedirectToAction("Edit", new { id = recipe.Id });
             }
 
             _notificationService.ErrorNotification("ein Fehler ist aufgetreten!");
@@ -111,6 +111,8 @@ namespace ReichhartLogistik.Web.Controllers
                     recipe.Name = recipeModel.Name;
                     recipe.Deleted = recipeModel.Deleted;
                     await _recipeService.UpdateRecipeAsync(recipe);
+                    await PrepareRecipeIngredients(recipeModel, recipe, true);
+                    await PrepareAvaliableIngredientsAsync(recipeModel);
                     _notificationService.SuccessNotification("Das Rezept wurde aktualisiert!");
                 }
                 else

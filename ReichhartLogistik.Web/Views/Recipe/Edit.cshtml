@@ -1,14 +1,14 @@
 ﻿@model ReichhartLogistik.Models.EntityModels.RecipeModel
 
 @{
-    ViewData["Title"] = "Edit Recipe";
+    ViewData["Title"] = "Rezept bearbeiten";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Edit Recipe - @Model.Id</h2>
+                <h2 class="text-white py-2">Rezept bearbeiten - @Model.Id</h2>
             </div>
         </div>
     </div>
@@ -30,11 +30,11 @@
 
                 <div class="row mt-3">
                     <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                        <button type="submit" class="btn btn-primary form-control"><i class="bi bi-pencil-square"></i> Aktualisieren</button>
                     </div>
                     <div class="col-6 col-md-3">
                         <a asp-action="Index" class="btn btn-secondary border  form-control">
-                            Back to List
+                            <i class="bi bi-info"></i>  Back to List
                         </a>
                     </div>
                 </div>
@@ -43,10 +43,10 @@
 
         <div class="row">
             <div class="card shadow border-0 mt-4">
-                <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+                <div class="card-header bg-secondary bg-gradient ml-0">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <h2 class="text-white py-2">Zutaten</h2>
+                            <h4 class="text-white">Zutaten</h4>
                         </div>
                     </div>
                 </div>

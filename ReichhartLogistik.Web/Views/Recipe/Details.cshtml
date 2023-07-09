@@ -1,14 +1,14 @@
 ﻿@model RecipeModel
 
 @{
-    ViewData["Title"] = "Edit Recipe";
+    ViewData["Title"] = "Rezeptdetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Details Recipe - @Model.Id</h2>
+                <h2 class="text-white py-2">Rezeptdetails - @Model.Id</h2>
             </div>
         </div>
     </div>
@@ -29,12 +29,12 @@
                 </dd>
             </dl>
             <div class="row mt-3">
-                <div class="col-6 col-md-3">
+                <div class="col-sm-12 col-md-3">
                     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary form-control">
-                        <i class="bi bi-pencil-square"></i> Edit
+                        <i class="bi bi-pencil-square"></i> Aktualisieren
                     </a>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-sm-12 col-md-3">
                     <a asp-action="Index" class="btn btn-secondary border  form-control">
                         <i class="bi bi-info"></i> Zurück zur Liste
                     </a>
@@ -44,10 +44,10 @@
 
         <div class="row">
             <div class="card shadow border-0 mt-4">
-                <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+                <div class="card-header bg-secondary bg-gradient ml-0">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <h2 class="text-white py-2">Zutaten</h2>
+                            <h4 class="text-white">Zutaten</h4>
                         </div>
                     </div>
                 </div>

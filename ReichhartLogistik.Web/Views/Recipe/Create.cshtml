@@ -1,14 +1,14 @@
 ﻿@model RecipeModel
 
 @{
-    ViewData["Title"] = "Create Recipe";
+    ViewData["Title"] = "Rezept erstellen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create Recipe</h2>
+                <h2 class="text-white py-2">Rezept erstellen</h2>
             </div>
         </div>
     </div>
@@ -33,16 +33,14 @@
 
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Create</button>
+                        <button type="submit" class="btn btn-primary form-control"><i class="bi bi-plus-circle"></i> Erstellen</button>
                     </div>
                     <div class="col-6 col-md-3">
                         <a asp-action="Index" class="btn btn-outline-primary border  form-control">
-                            Back to List
+                            <i class="bi bi-info"></i>   Zurück zur Liste
                         </a>
                     </div>
                 </div>
-
-
             </div>
         </form>
     </div>

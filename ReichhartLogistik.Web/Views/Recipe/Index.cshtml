@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
     string includeDeleted = Context.Request.Query["includeDeleted"];
-    bool isIncludeDeletedActive = false;
+    bool isIncludeDeletedActive = string.IsNullOrEmpty(includeDeleted);
     if (!string.IsNullOrEmpty(includeDeleted))
     {
         isIncludeDeletedActive = !includeDeleted.Equals("true", StringComparison.OrdinalIgnoreCase);
