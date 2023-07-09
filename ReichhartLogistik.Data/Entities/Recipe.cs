@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Azure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace ReichhartLogistik.Data.Entities
 {
     public class Recipe : BaseEntity, IDeletedEntity
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public bool Deleted { get; set; }
+        public List<RecipeIngredients> RecipeIngredients { get;} = new();
     }
 }

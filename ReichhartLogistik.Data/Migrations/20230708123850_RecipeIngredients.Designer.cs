@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReichhartLogistik.Data;
 
@@ -10,9 +11,11 @@ using ReichhartLogistik.Data;
 namespace ReichhartLogistik.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230708123850_RecipeIngredients")]
+    partial class RecipeIngredients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,35 +63,36 @@ namespace ReichhartLogistik.Data.Migrations
 
             modelBuilder.Entity("ReichhartLogistik.Data.Entities.RecipeIngredients", b =>
                 {
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.HasKey("IngredientId", "RecipeId");
+                    b.HasKey("RecipeId", "IngredientId");
 
-                    b.HasIndex("RecipeId");
+                    b.HasIndex("IngredientId");
 
                     b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("ReichhartLogistik.Data.Entities.RecipeIngredients", b =>
                 {
-                    b.HasOne("ReichhartLogistik.Data.Entities.Ingredient", null)
+                    b.HasOne("ReichhartLogistik.Data.Entities.Ingredient", "Ingredient")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ReichhartLogistik.Data.Entities.Recipe", null)
+                    b.HasOne("ReichhartLogistik.Data.Entities.Recipe", "Recipe")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("ReichhartLogistik.Data.Entities.Ingredient", b =>

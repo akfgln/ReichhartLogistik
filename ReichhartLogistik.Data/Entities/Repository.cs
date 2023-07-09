@@ -85,7 +85,9 @@ namespace ReichhartLogistik.Data.Entities
 
         public async Task<IList<TEntity>> GetAllAsync(bool includeDeleted = true)
         {
-            return await _dbContext.Set<TEntity>().ToListAsync();
+            var query = DeletedFilter(includeDeleted);
+
+            return await query.ToListAsync();
         }
 
         public async Task<IPagedList<TEntity>> GetAllPagedAsync(int pageIndex = 0, int pageSize = int.MaxValue, bool getOnlyTotalCount = false, bool includeDeleted = true)
@@ -95,11 +97,11 @@ namespace ReichhartLogistik.Data.Entities
             return await query.ToPagedListAsync(pageIndex, pageSize, getOnlyTotalCount);
         }
 
-        public async Task<TEntity> GetByIdAsync(int? id, bool includeDeleted = true)
+        public async Task<TEntity> GetByIdAsync(int id, bool includeDeleted = true)
         {
-            if (!id.HasValue || id == 0)
+            if (id == 0)
                 return null;
-
+            
             return await DeletedFilter(includeDeleted).FirstOrDefaultAsync(entity => entity.Id == Convert.ToInt32(id));
         }
 

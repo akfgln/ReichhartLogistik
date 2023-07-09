@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ReichhartLogistik.Data.Entities;
+using ReichhartLogistik.Models.EntityModels;
 
 namespace ReichhartLogistik.Models
 {
@@ -15,7 +12,14 @@ namespace ReichhartLogistik.Models
         {
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Recipe, RecipeModel>();
+                cfg.CreateMap<RecipeModel, Recipe>();
+
+                cfg.CreateMap<Ingredient, IngredientModel>();
+                cfg.CreateMap<IngredientModel, Ingredient>();
+
+                cfg.CreateMap<RecipeIngredients, RecipeIngredientsModel>();
+                cfg.CreateMap<RecipeIngredientsModel, RecipeIngredients>();
             });
             MapperConfiguration = config;
             var mapper = new Mapper(config);

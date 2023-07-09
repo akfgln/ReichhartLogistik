@@ -9,9 +9,10 @@ namespace ReichhartLogistik.Service
 {
     public interface IRecipeService
     {
-        Task<IEnumerable<Recipe>> GetRecipesAsync();
-        Task<Recipe> GetRecipeByIdAsync(int id);
-        Task UpdateRecipeAsync(Recipe recipe);
         Task DeleteRecipeAsync(Recipe recipe);
+        Task<IEnumerable<Recipe>> GetRecipesAsync(bool includeDeleted = true);
+        Task<Recipe> GetRecipeByIdAsync(int id);
+        Task InsertRecipeAsync(Recipe recipe);
+        Task UpdateRecipeAsync(Recipe recipe);
     }
 }

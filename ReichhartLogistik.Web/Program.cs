@@ -1,23 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using ReichhartLogistik.Data;
 using ReichhartLogistik.Data.Entities;
+using ReichhartLogistik.Models;
 using ReichhartLogistik.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<IRepository<Recipe>, EntityRepository<Recipe>>();
-builder.Services.AddScoped<IRecipeService, RecipeService>();
-
+builder.Services.ConfigureApplicationServices(builder);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Recipe/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -31,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Recipe}/{action=Index}/{id?}");
 
 app.Run();

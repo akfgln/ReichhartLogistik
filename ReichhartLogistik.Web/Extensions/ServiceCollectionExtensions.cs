@@ -1,12 +1,9 @@
 ﻿using FluentValidation.AspNetCore;
 using FluentValidation;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ReichhartLogistik.Models.Validators;
+using ReichhartLogistik.Data.Entities;
+using ReichhartLogistik.Service;
+using ReichhartLogistik.Web.Services;
 
 namespace ReichhartLogistik.Models
 {
@@ -15,18 +12,29 @@ namespace ReichhartLogistik.Models
         public static void ConfigureApplicationServices(this IServiceCollection services,
            WebApplicationBuilder builder)
         {
+            builder.Services.AddScoped<INotificationService, NotificationService>();
+
             AutoMapper.InitializeAutomapper();
 
             var mvcBuilder = services.AddControllersWithViews();
+
+#if DEBUG
+            mvcBuilder.AddRazorRuntimeCompilation();
+#endif
             //add fluent validation
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
-            //register all available validators from assemblies
-            var assemblies = mvcBuilder.PartManager.ApplicationParts
-                .OfType<AssemblyPart>()
-                .Where(part => part.Name.StartsWith("ReichhartLogistik", StringComparison.InvariantCultureIgnoreCase))
-                .Select(part => part.Assembly);
-            services.AddValidatorsFromAssemblies(assemblies);
+            services.AddValidatorsFromAssemblyContaining<RecipeValidator>();
+
+            builder.Services.AddScoped<IRepository<Recipe>, EntityRepository<Recipe>>();
+            builder.Services.AddScoped<IRecipeService, RecipeService>();
+
+            builder.Services.AddScoped<IRepository<Ingredient>, EntityRepository<Ingredient>>();
+            builder.Services.AddScoped<IIngredientService, IngredientService>();
+
+            builder.Services.AddScoped<IRepository<RecipeIngredients>, EntityRepository<RecipeIngredients>>();
+            builder.Services.AddScoped<IRecipeIngredientsService, RecipeIngredientsService>();
+
         }
 
     }

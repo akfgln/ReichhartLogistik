@@ -8,6 +8,7 @@ namespace ReichhartLogistik.Data.Entities
 {
     public class Ingredient : BaseEntity
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
+        public List<RecipeIngredients> RecipeIngredients { get; } = new();
     }
 }

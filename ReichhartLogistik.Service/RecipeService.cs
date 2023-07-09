@@ -24,9 +24,14 @@ namespace ReichhartLogistik.Service
             return await _recipeRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesAsync()
+        public async Task<IEnumerable<Recipe>> GetRecipesAsync(bool includeDeleted = true)
         {
-            return await _recipeRepository.GetAllAsync();
+            return await _recipeRepository.GetAllAsync(includeDeleted);
+        }
+
+        public async Task InsertRecipeAsync(Recipe recipe)
+        {
+            await _recipeRepository.InsertAsync(recipe);
         }
 
         public async Task UpdateRecipeAsync(Recipe recipe)

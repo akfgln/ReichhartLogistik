@@ -11,7 +11,7 @@ namespace ReichhartLogistik.Data.Entities
     public partial interface IRepository<T> where T : BaseEntity
     {
 
-        Task<T> GetByIdAsync(int? id, bool includeDeleted = true);
+        Task<T> GetByIdAsync(int id, bool includeDeleted = true);
 
         Task<IList<T>> GetByIdsAsync(IList<int> ids, bool includeDeleted = true);
 
