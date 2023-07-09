@@ -46,7 +46,9 @@ namespace ReichhartLogistik.Web.Controllers
                 var ingredient = ingredientModel.ToEntity<Ingredient>();
                 await _ingredientService.InsertIngredientAsync(ingredient);
                 _notificationService.SuccessNotification("Die Zutat wurde erstellt!");
-                return RedirectToAction("Edit", new { id = ingredient.Id });
+                //return RedirectToAction("Edit", new { id = ingredient.Id });
+                return RedirectToAction("Index");
+
             }
 
             _notificationService.ErrorNotification("Das Modell ist ungültig!");
@@ -88,8 +90,9 @@ namespace ReichhartLogistik.Web.Controllers
                 else
                 {
                     _notificationService.ErrorNotification("Die Zutat ist nicht gefunden!");
-                    return RedirectToAction("Index");
                 }
+                return RedirectToAction("Index");
+
             }
             else
             {
