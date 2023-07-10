@@ -8,10 +8,9 @@
     toastr.options.closeButton = true;
 </script>
 
-
 ﻿@if (TempData["Success"] != null)
 {
-    var notifyModel = JsonConvert.DeserializeObject<NotifyModel>(TempData["Success"].ToString());
+    var notifyModel = getNotifyData(TempData["Success"].ToString());
     if (notifyModel != null)
     {
         <script type="text/javascript">
@@ -22,7 +21,7 @@
 
 ﻿@if (TempData["Warning"] != null)
 {
-    var notifyModel = JsonConvert.DeserializeObject<NotifyModel>(TempData["Warning"].ToString());
+    var notifyModel = getNotifyData(TempData["Warning"].ToString());
     if (notifyModel != null)
     {
         <script type="text/javascript">
@@ -33,11 +32,25 @@
 
 ﻿@if (TempData["Error"] != null)
 {
-    var notifyModel = JsonConvert.DeserializeObject<NotifyModel>(TempData["Error"].ToString());
+    var notifyModel = getNotifyData(TempData["Error"].ToString());
     if (notifyModel != null)
     {
         <script type="text/javascript">
             toastr.error('@notifyModel.Message');
         </script>
+    }
+}
+
+@functions {
+    public NotifyModel getNotifyData(string notify)
+    {
+        try
+        {
+            return JsonConvert.DeserializeObject<NotifyModel>(notify);
+        }
+        catch
+        {
+        }
+        return null;
     }
 }
