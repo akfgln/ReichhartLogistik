@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ReichhartLogistik.Data.Entities;
 using ReichhartLogistik.Models.EntityModels;
 using ReichhartLogistik.Models.Extensions;
@@ -10,14 +9,18 @@ namespace ReichhartLogistik.Web.Controllers
 {
     public class IngredientController : Controller
     {
+
+        private readonly ILogger<IngredientController> _logger;
         private readonly IIngredientService _ingredientService;
         private readonly IRecipeIngredientsService _recipeIngredientsService;
         private readonly INotificationService _notificationService;
         public IngredientController(
+            ILogger<IngredientController> logger,
             IIngredientService ingredientService,
             IRecipeIngredientsService recipeIngredientsService,
             INotificationService notificationService)
         {
+            _logger = logger;
             _ingredientService = ingredientService;
             _recipeIngredientsService = recipeIngredientsService;
             _notificationService = notificationService;
@@ -46,6 +49,7 @@ namespace ReichhartLogistik.Web.Controllers
                 var ingredient = ingredientModel.ToEntity<Ingredient>();
                 await _ingredientService.InsertIngredientAsync(ingredient);
                 _notificationService.SuccessNotification("Die Zutat wurde erstellt!");
+                _logger.LogInformation($"Die Zutat - {ingredient.Id} wurde erstellt!");
                 //return RedirectToAction("Edit", new { id = ingredient.Id });
                 return RedirectToAction("Index");
 
@@ -86,6 +90,7 @@ namespace ReichhartLogistik.Web.Controllers
                     ingredient.Name = ingredientModel.Name;
                     await _ingredientService.UpdateIngredientAsync(ingredient);
                     _notificationService.SuccessNotification("Die Zutat wurde aktualisiert!");
+                    _logger.LogInformation($"Die Zutat - {ingredient.Id} wurde aktualisiert!");
                 }
                 else
                 {
@@ -133,6 +138,8 @@ namespace ReichhartLogistik.Web.Controllers
                     {
                         await _ingredientService.DeleteIngredientAsync(ingredient);
                         _notificationService.SuccessNotification("Die Zutat wurde gelöscht!");
+
+                        _logger.LogInformation($"Die Zutat - {ingredient.Id} wurde gelöscht");
                         return RedirectToAction("Index");
                     }
 

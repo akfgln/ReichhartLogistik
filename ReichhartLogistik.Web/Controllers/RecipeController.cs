@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Packaging;
 using ReichhartLogistik.Data.Entities;
 using ReichhartLogistik.Models;
 using ReichhartLogistik.Models.EntityModels;
@@ -14,16 +13,19 @@ namespace ReichhartLogistik.Web.Controllers
     public class RecipeController : Controller
     {
         private readonly IIngredientService _ingredientService;
+        private readonly ILogger<RecipeController> _logger;
         private readonly INotificationService _notificationService;
         private readonly IRecipeService _recipeService;
         private readonly IRecipeIngredientsService _recipeIngredientsService;
         public RecipeController(
             IIngredientService ingredientService,
+            ILogger<RecipeController> logger,
             INotificationService notificationService,
             IRecipeService recipeService,
             IRecipeIngredientsService recipeIngredientsService)
         {
             _ingredientService = ingredientService;
+            _logger = logger;
             _notificationService = notificationService;
             _recipeService = recipeService;
             _recipeIngredientsService = recipeIngredientsService;
@@ -54,6 +56,7 @@ namespace ReichhartLogistik.Web.Controllers
                 recipe.RecipeIngredients.AddRange(recipeModel.SelectedIngredientIds.Select(x => new RecipeIngredients { IngredientId = x, RecipeId = recipe.Id }));
                 await _recipeService.UpdateRecipeAsync(recipe);
                 _notificationService.SuccessNotification("Neues Rezept wurde erstellt!");
+                _logger.LogInformation($"Neues Rezep - {recipe.Id} wurde erstellt!");
                 return RedirectToAction("Edit", new { id = recipe.Id });
             }
 
@@ -112,6 +115,7 @@ namespace ReichhartLogistik.Web.Controllers
                     await PrepareRecipeIngredients(recipeModel, recipe, true);
                     await PrepareAvaliableIngredientsAsync(recipeModel);
                     _notificationService.SuccessNotification("Das Rezept wurde aktualisiert!");
+                    _logger.LogInformation($"Das Rezept - {recipe.Id} wurde aktualisiert!");
                     if (recipeModel.Deleted)
                     {
                         return RedirectToAction("Index");
