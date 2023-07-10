@@ -11,14 +11,13 @@ namespace ReichhartLogistik.Test
     [TestFixture]
     public class RecipeServicesUnitTest
     {
-        private readonly IRepository<Recipe> _recipeRepository;
         private readonly IRecipeService _recipeService;
         public RecipeServicesUnitTest()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>().
                 UseInMemoryDatabase(Guid.NewGuid().ToString());
             var dbContext = new ApplicationDbContext(optionsBuilder.Options);
-            _recipeRepository = new EntityRepository<Recipe>(dbContext);
+            IRepository<Recipe> _recipeRepository = new EntityRepository<Recipe>(dbContext);
 
             _recipeService = new RecipeService(_recipeRepository);
 
@@ -27,8 +26,7 @@ namespace ReichhartLogistik.Test
         [Test]
         public void TestDeleteRecipe()
         {
-            var tRecipe = new Recipe { Name = "Test" };
-            _recipeService.InsertRecipeAsync(tRecipe).Wait();
+            Recipe tRecipe = InsertRecipe().Result;
             _recipeService.DeleteRecipeAsync(tRecipe).Wait();
             var recipe = _recipeService.GetRecipeByIdAsync(tRecipe.Id).Result;
             recipe.Deleted.Should().BeTrue();
@@ -37,8 +35,7 @@ namespace ReichhartLogistik.Test
         [Test]
         public void TestInsertRecipe()
         {
-            var tRecipe = new Recipe { Name = "Test" };
-            _recipeService.InsertRecipeAsync(tRecipe).Wait();
+            var tRecipe = InsertRecipe().Result;
             var recipe = _recipeService.GetRecipeByIdAsync(tRecipe.Id).Result;
             recipe.Should().NotBeNull();
         }
@@ -56,12 +53,18 @@ namespace ReichhartLogistik.Test
         [Test]
         public void TestUpdateRecipe()
         {
-            var tRecipe = new Recipe { Name = "Test" };
-            _recipeService.InsertRecipeAsync(tRecipe).Wait();
+            var tRecipe = InsertRecipe().Result;
             var recipe = _recipeService.GetRecipeByIdAsync(tRecipe.Id).Result;
             recipe.Name="Test2";
             _recipeService.UpdateRecipeAsync(recipe).Wait();
             recipe.Name.Should().BeSameAs("Test2");
+        }
+
+        public async Task<Recipe> InsertRecipe()
+        {
+            var tRecipe = new Recipe { Name = "Test" };
+            await _recipeService.InsertRecipeAsync(tRecipe);
+            return tRecipe;
         }
     }
 }
